@@ -14,6 +14,9 @@ import {
 import { Badge } from "@/components/ui/badge";
 
 export const Release = ({ release }: { release: DiscogsRelease }) => {
+  const artists = release.basic_information.artists
+    .map((artist) => artist.name)
+    .join(", ");
   return (
     <Link
       href={`https://www.discogs.com/release/${release.id}`}
@@ -22,9 +25,7 @@ export const Release = ({ release }: { release: DiscogsRelease }) => {
       <Card className="w-full p-4 gap-4">
         <CardHeader className="p-0">
           <CardTitle>{release.basic_information.title}</CardTitle>
-          <CardDescription>
-            {release.basic_information.artists[0].name}
-          </CardDescription>
+          <CardDescription>{artists}</CardDescription>
         </CardHeader>
         <CardContent className="p-0">
           <Image
