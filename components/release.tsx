@@ -11,9 +11,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 export const Release = ({ release }: { release: DiscogsRelease }) => {
-  console.log("Release", release);
   return (
     <Link
       href={`https://www.discogs.com/release/${release.id}`}
@@ -33,9 +33,18 @@ export const Release = ({ release }: { release: DiscogsRelease }) => {
             width={500}
             height={500}
           />
-        </CardContent>
-        <CardFooter className="p-0">
           <p>{release.basic_information.year}</p>
+        </CardContent>
+        <CardFooter className="p-0 flex items-center justify-between">
+          {release.basic_information.styles.length > 0 && (
+            <ul className="flex flex-wrap gap-2">
+              {release.basic_information.styles.map((style) => (
+                <Badge key={style} variant="secondary">
+                  {style}
+                </Badge>
+              ))}
+            </ul>
+          )}
         </CardFooter>
       </Card>
     </Link>
