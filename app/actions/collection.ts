@@ -1,11 +1,14 @@
-import type { DiscogsCollectionResponse, DiscogsFolder } from "../lib/types";
+import type {
+  DiscogsCollectionResponse,
+  DiscogsFolderResponse,
+} from "../../lib/types";
 
 const username = process.env.DISCOGS_USERNAME?.trim();
 const accessToken = process.env.DISCOGS_ACCESS_TOKEN?.trim();
 const apiBaseUrl =
   process.env.DISCOGS_API_BASE_URL?.trim() || "https://api.discogs.com";
 
-export const getFolders = async (): Promise<DiscogsFolder[]> => {
+export const getFolders = async (): Promise<DiscogsFolderResponse> => {
   if (!username) {
     throw new Error("Missing DISCOGS_USERNAME environment variable");
   }
@@ -39,9 +42,9 @@ export const getFolders = async (): Promise<DiscogsFolder[]> => {
     );
   }
 
-  const foldersData = (await res.json()) as { folders?: DiscogsFolder[] };
+  const foldersData = (await res.json()) as DiscogsFolderResponse;
 
-  return foldersData.folders || [];
+  return foldersData;
 };
 
 export const getCollection = async (): Promise<DiscogsCollectionResponse> => {
