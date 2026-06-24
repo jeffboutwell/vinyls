@@ -42,3 +42,7 @@ export type DiscogsFolder = {
   name: string;
   resource_url: string;
 };
+
+export type DiscogsFolderResponse = {
+  folders?: DiscogsFolder[];
+};
