@@ -9,7 +9,9 @@ export const ReleaseList = ({
 }) => {
   return (
     <div>
-      <h2>My Vinyl Collection</h2>
+      <h2 className="font-heading font-black text-3xl mb-8">
+        My Vinyl Collection
+      </h2>
       <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {collection.map((release) => (
           <li key={release.id}>

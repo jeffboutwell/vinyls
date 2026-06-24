@@ -24,8 +24,10 @@ export const Release = ({ release }: { release: DiscogsRelease }) => {
     >
       <Card className="w-full p-4 gap-4">
         <CardHeader className="p-0">
-          <CardTitle>{release.basic_information.title}</CardTitle>
-          <CardDescription>{artists}</CardDescription>
+          <CardTitle className="font-bold text-2xl">
+            {release.basic_information.title}
+          </CardTitle>
+          <CardDescription className="text-lg">{artists}</CardDescription>
         </CardHeader>
         <CardContent className="p-0">
           <Image
