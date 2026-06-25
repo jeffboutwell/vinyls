@@ -1,8 +1,16 @@
 import { getCollection } from "./actions/collection";
 import { ReleaseList } from "@/components/release-list";
+import { loadCollectionFolderSearchParams } from "@/actions/nuqs";
+import { SearchParams } from "nuqs/server";
 
-export default async function Home() {
-  const { releases } = await getCollection();
+type PageProps = {
+  searchParams: Promise<SearchParams>;
+};
+
+export default async function Home({ searchParams }: PageProps) {
+  const { folder_id, sort, sort_order } =
+    await loadCollectionFolderSearchParams(searchParams);
+  const { releases } = await getCollection({ folder_id, sort, sort_order });
 
   return (
     <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">

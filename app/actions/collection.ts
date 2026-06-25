@@ -3,6 +3,12 @@ import type {
   DiscogsFolderResponse,
 } from "../../lib/types";
 
+import type { SearchParams } from "nuqs/server";
+import {
+  CollectionFolderSearch,
+  loadCollectionFolderSearchParams,
+} from "./nuqs";
+
 const username = process.env.DISCOGS_USERNAME?.trim();
 const accessToken = process.env.DISCOGS_ACCESS_TOKEN?.trim();
 const apiBaseUrl =
@@ -47,7 +53,9 @@ export const getFolders = async (): Promise<DiscogsFolderResponse> => {
   return foldersData;
 };
 
-export const getCollection = async (): Promise<DiscogsCollectionResponse> => {
+export const getCollection = async (
+  collectionSearchParams: CollectionFolderSearch,
+): Promise<DiscogsCollectionResponse> => {
   if (!username) {
     throw new Error("Missing DISCOGS_USERNAME environment variable");
   }
@@ -55,8 +63,8 @@ export const getCollection = async (): Promise<DiscogsCollectionResponse> => {
   const url = new URL(
     `${apiBaseUrl}/users/${encodeURIComponent(username)}/collection/folders/0/releases`,
   );
-  url.searchParams.set("sort", "artist");
-  url.searchParams.set("sort_order", "asc");
+  url.searchParams.set("sort", collectionSearchParams.sort);
+  url.searchParams.set("sort_order", collectionSearchParams.sort_order);
 
   const headers: HeadersInit = {
     "User-Agent": process.env.DISCOGS_USER_AGENT || "VinylsApp/1.0",
