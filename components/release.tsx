@@ -28,6 +28,9 @@ export const Release = ({ release }: { release: DiscogsRelease }) => {
             {release.basic_information.title}
           </CardTitle>
           <CardDescription className="text-lg">{artists}</CardDescription>
+          <div className="flex gap-2">
+            <p>{release.basic_information.year}</p>
+          </div>
         </CardHeader>
         <CardContent className="p-0">
           <Image
@@ -36,7 +39,6 @@ export const Release = ({ release }: { release: DiscogsRelease }) => {
             width={500}
             height={500}
           />
-          <p>{release.basic_information.year}</p>
         </CardContent>
         <CardFooter className="p-0 flex items-center justify-between">
           {release.basic_information.styles.length > 0 && (
