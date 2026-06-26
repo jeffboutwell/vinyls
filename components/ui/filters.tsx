@@ -3,12 +3,14 @@
 import React from "react";
 import { useFilters } from "@/lib/hooks/useFilters";
 import { Sort, SortLabels, SortOrder, SortOrderLabels } from "@/lib/types";
+import { ArrowUpNarrowWide, ArrowDownWideNarrow } from "lucide-react";
 
 import {
   NativeSelect,
   NativeSelectOption,
 } from "@/components/ui/native-select";
 import { Label } from "@/components/ui/label";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
 export const Filters = () => {
   const { filters, setFilters } = useFilters();
@@ -20,6 +22,9 @@ export const Filters = () => {
     if (Sort.includes(value as (typeof Sort)[number])) {
       setFilters({ sort: value as (typeof Sort)[number] });
     }
+  };
+
+  const handleSortOrderChange = (value: string) => {
     if (SortOrder.includes(value as (typeof SortOrder)[number])) {
       setFilters({ sort_order: value as (typeof SortOrder)[number] });
     }
@@ -44,18 +49,20 @@ export const Filters = () => {
       </div>
       <div className="flex items-center gap-2">
         <Label htmlFor="sort_order">Sort order:</Label>
-        <NativeSelect
-          onChange={handleSortChange}
+        <ToggleGroup
+          variant="outline"
+          type="single"
+          onValueChange={handleSortOrderChange}
           value={filters.sort_order}
-          name="sort_order"
           id="sort_order"
         >
-          {SortOrder.map((value) => (
-            <NativeSelectOption key={value} value={value}>
-              {SortOrderLabels[value]}
-            </NativeSelectOption>
-          ))}
-        </NativeSelect>
+          <ToggleGroupItem value="asc" aria-label="Toggle ascending">
+            <ArrowUpNarrowWide />
+          </ToggleGroupItem>
+          <ToggleGroupItem value="desc" aria-label="Toggle descending">
+            <ArrowDownWideNarrow />
+          </ToggleGroupItem>
+        </ToggleGroup>
       </div>
     </div>
   );
