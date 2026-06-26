@@ -6,8 +6,8 @@ import {
 } from "nuqs/server";
 
 export const Sort = [
-  "label",
   "artist",
+  "label",
   "title",
   "catno",
   "format",
@@ -16,7 +16,27 @@ export const Sort = [
   "year",
 ] as const;
 
+export type SortValue = (typeof Sort)[number];
+
+export const SortLabels: Record<SortValue, string> = {
+  artist: "Artist",
+  label: "Label",
+  title: "Title",
+  catno: "Cat No.",
+  format: "Format",
+  rating: "Rating",
+  added: "Date Added",
+  year: "Year",
+};
+
 export const SortOrder = ["asc", "desc"] as const;
+
+export type SortOrderValue = (typeof SortOrder)[number];
+
+export const SortOrderLabels: Record<SortOrderValue, string> = {
+  asc: "Ascending",
+  desc: "Descending",
+};
 
 export const collectionFolderSearchParams = {
   folder_id: parseAsInteger.withDefault(0),

@@ -1,3 +1,12 @@
+import {
+  Sort,
+  SortOrder,
+  SortLabels,
+  SortOrderLabels,
+} from "@/app/actions/nuqs";
+
+export { Sort, SortOrder, SortLabels, SortOrderLabels };
+
 export type DiscogsArtist = {
   anv: string;
   id: number;

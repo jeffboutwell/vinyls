@@ -1,6 +1,7 @@
 import React from "react";
 import { DiscogsRelease } from "@/lib/types";
 import { Release } from "@/components/release";
+import { Filters } from "@/components/ui/filters";
 
 export const ReleaseList = ({
   collection,
@@ -12,6 +13,7 @@ export const ReleaseList = ({
       <h2 className="font-heading font-black text-3xl mb-8">
         My Vinyl Collection
       </h2>
+      <Filters />
       <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {collection.map((release) => (
           <li key={release.id}>
