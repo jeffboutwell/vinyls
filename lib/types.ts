@@ -7,6 +7,15 @@ import {
 
 export { Sort, SortOrder, SortLabels, SortOrderLabels };
 
+type DiscogosArtistImage = {
+  height: number;
+  resource_url: string;
+  type: "primary" | "secondary";
+  uri: string;
+  uri150: string;
+  width: number;
+};
+
 export type DiscogsArtist = {
   anv: string;
   id: number;
@@ -15,6 +24,8 @@ export type DiscogsArtist = {
   resource_url: string;
   role: string;
   tracks: string;
+  uri: string;
+  images: DiscogosArtistImage[];
 };
 
 export type DiscogsRelease = {

@@ -1,7 +1,7 @@
 import React from "react";
-import { DiscogsRelease, DiscogsArtist } from "@/lib/types";
+import { DiscogsRelease } from "@/lib/types";
 import Image from "next/image";
-import Link from "next/link";
+import { Artist } from "@/components/artist";
 
 import {
   Card,
@@ -13,19 +13,6 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
-const Artist = ({ artist }: { artist: DiscogsArtist }) => {
-  return (
-    <Badge key={artist.id} variant="ghost" asChild>
-      <Link
-        href={`https://www.discogs.com/artist/${artist.id}-${artist.name.replace(/\s+/g, "-")}`}
-        target="_blank"
-      >
-        {artist.name}
-      </Link>
-    </Badge>
-  );
-};
-
 export const Release = ({ release }: { release: DiscogsRelease }) => {
   return (
     <Card className="w-full p-4 gap-4">
@@ -33,7 +20,7 @@ export const Release = ({ release }: { release: DiscogsRelease }) => {
         <CardTitle className="font-bold text-2xl">
           {release.basic_information.title}
         </CardTitle>
-        <CardDescription className="text-lg">
+        <CardDescription className="flex flex-wrap gap-2">
           {release.basic_information.artists.map((artist) => (
             <Artist key={artist.id} artist={artist} />
           ))}

@@ -1,12 +1,8 @@
 import type { DiscogsArtist } from "../../lib/types";
 
-import { apiBaseUrl, accessToken, username } from "./discogs";
+import { apiBaseUrl, accessToken } from "./discogs";
 
 export const getArtist = async (artist_id: string): Promise<DiscogsArtist> => {
-  if (!username) {
-    throw new Error("Missing DISCOGS_USERNAME environment variable");
-  }
-
   const url = new URL(`${apiBaseUrl}/artists/${artist_id}`);
 
   const headers: HeadersInit = {
