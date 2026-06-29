@@ -20,16 +20,22 @@ export const Artist = ({ artist }: { artist: DiscogsArtist }) => {
         const data = await getArtist(artist.id.toString());
         setArtistData(data);
         console.log("Fetched artist data:", data);
-      } catch (error) {
-        console.error("Error fetching artist data:", error);
-      }
+      } catch (error) {}
     };
 
     fetchArtist();
   }, [artist.id]);
 
   if (!artistData) {
-    return <span>{artist.name}</span>;
+    return (
+      <Button
+        variant="link"
+        disabled
+        className="hover:no-underline cursor-pointer pl-0 text-muted-foreground hover:text-foreground text-xs h-4"
+      >
+        {artist.name}
+      </Button>
+    );
   }
 
   return (
