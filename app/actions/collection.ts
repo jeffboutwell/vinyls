@@ -1,0 +1,89 @@
+import type {
+  DiscogsCollectionResponse,
+  DiscogsFolderResponse,
+} from "../../lib/types";
+
+import { CollectionFolderSearch } from "./nuqs";
+import { apiBaseUrl, accessToken, username } from "./discogs";
+
+export const getFolders = async (): Promise<DiscogsFolderResponse> => {
+  if (!username) {
+    throw new Error("Missing DISCOGS_USERNAME environment variable");
+  }
+
+  const url = new URL(
+    `${apiBaseUrl}/users/${encodeURIComponent(username)}/collection/folders`,
+  );
+
+  const headers: HeadersInit = {
+    "User-Agent": process.env.DISCOGS_USER_AGENT || "VinylsApp/1.0",
+  };
+
+  if (accessToken) {
+    headers.Authorization = `Discogs token=${accessToken}`;
+  }
+
+  let res: Response;
+  try {
+    res = await fetch(url, {
+      headers,
+      next: { revalidate: 3600 },
+    });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    throw new Error(`Discogs request failed before response: ${message}`);
+  }
+
+  if (!res.ok) {
+    throw new Error(
+      `Failed to fetch collection: ${res.status} ${res.statusText}`,
+    );
+  }
+
+  const foldersData = (await res.json()) as DiscogsFolderResponse;
+
+  return foldersData;
+};
+
+export const getCollection = async (
+  collectionSearchParams: CollectionFolderSearch,
+): Promise<DiscogsCollectionResponse> => {
+  const { folder_id, sort, sort_order } = collectionSearchParams;
+  console.log("collectionSearchParams", { folder_id, sort, sort_order });
+  if (!username) {
+    throw new Error("Missing DISCOGS_USERNAME environment variable");
+  }
+
+  const url = new URL(
+    `${apiBaseUrl}/users/${encodeURIComponent(username)}/collection/folders/${folder_id}/releases`,
+  );
+  url.searchParams.set("sort", sort);
+  url.searchParams.set("sort_order", sort_order);
+
+  const headers: HeadersInit = {
+    "User-Agent": process.env.DISCOGS_USER_AGENT || "VinylsApp/1.0",
+  };
+
+  if (accessToken) {
+    headers.Authorization = `Discogs token=${accessToken}`;
+  }
+
+  let res: Response;
+  try {
+    res = await fetch(url, {
+      headers,
+      next: { revalidate: 3600 },
+    });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    throw new Error(`Discogs request failed before response: ${message}`);
+  }
+
+  if (!res.ok) {
+    throw new Error(
+      `Failed to fetch collection: ${res.status} ${res.statusText}`,
+    );
+  }
+
+  return (await res.json()) as DiscogsCollectionResponse;
+};
