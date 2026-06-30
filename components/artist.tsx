@@ -19,7 +19,6 @@ export const Artist = ({ artist }: { artist: DiscogsArtist }) => {
       try {
         const data = await getArtist(artist.id.toString());
         setArtistData(data);
-        console.log("Fetched artist data:", data);
       } catch (error) {}
     };
 

@@ -49,7 +49,6 @@ export const getCollection = async (
   collectionSearchParams: CollectionFolderSearch,
 ): Promise<DiscogsCollectionResponse> => {
   const { folder_id, sort, sort_order } = collectionSearchParams;
-  console.log("collectionSearchParams", { folder_id, sort, sort_order });
   if (!username) {
     throw new Error("Missing DISCOGS_USERNAME environment variable");
   }
