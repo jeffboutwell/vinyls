@@ -1,36 +1,31 @@
 import React from "react";
 
 import {
-  Menubar,
-  MenubarCheckboxItem,
-  MenubarContent,
-  MenubarGroup,
-  MenubarItem,
-  MenubarMenu,
-  MenubarRadioGroup,
-  MenubarRadioItem,
-  MenubarSeparator,
-  MenubarShortcut,
-  MenubarSub,
-  MenubarSubContent,
-  MenubarSubTrigger,
-  MenubarTrigger,
-} from "@/components/ui/menubar";
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+} from "@/components/ui/navigation-menu";
+
+const TopMenuItems = [
+  { name: "Home", href: "/" },
+  { name: "Wants List", href: "/wants" },
+];
 
 export const Header = () => {
   return (
-    <div className="flex">
-      <Menubar className="w-content justify-end">
-        <MenubarMenu>
-          <MenubarContent>
-            <MenubarGroup>
-              <MenubarTrigger>Test</MenubarTrigger>
-              <MenubarItem>Home</MenubarItem>
-              <MenubarItem>Wantlist</MenubarItem>
-            </MenubarGroup>
-          </MenubarContent>
-        </MenubarMenu>
-      </Menubar>
+    <div className="flex m-0">
+      <NavigationMenu>
+        <NavigationMenuList>
+          {TopMenuItems.map((item) => (
+            <NavigationMenuItem key={item.name}>
+              <NavigationMenuLink href={item.href}>
+                {item.name}
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+          ))}
+        </NavigationMenuList>
+      </NavigationMenu>
     </div>
   );
 };
