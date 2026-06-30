@@ -1,5 +1,5 @@
 import React from "react";
-import { DiscogsRelease } from "@/lib/types";
+import { DiscogsRelease, DiscogsWant } from "@/lib/types";
 import Image from "next/image";
 import { Artist } from "@/components/artist";
 
@@ -13,7 +13,11 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
-export const Release = ({ release }: { release: DiscogsRelease }) => {
+export const Release = ({
+  release,
+}: {
+  release: DiscogsRelease | DiscogsWant;
+}) => {
   return (
     <Card className="w-full p-4 gap-4">
       <CardHeader className="p-0">
