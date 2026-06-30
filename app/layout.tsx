@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Inter, Manrope } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
+import { Header } from "@/components/header";
 
 const manropeHeading = Manrope({
   subsets: ["latin"],
@@ -45,7 +46,10 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-full flex flex-col">
-        <NuqsAdapter>{children}</NuqsAdapter>
+        <NuqsAdapter>
+          <Header />
+          {children}
+        </NuqsAdapter>
       </body>
     </html>
   );
